@@ -1,91 +1,64 @@
 package pages.webmasters;
+
+import com.codeborne.selenide.SelenideElement;
 import com.github.javafaker.Faker;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-
+import static com.codeborne.selenide.Selenide.*;
 
 public class WebmasterCreationPage {
-    private WebDriver driver;
-    private Faker faker;
 
-    @FindBy(id = "web-email")
-    private WebElement email;
-    @FindBy(id = "web-phone")
-    private WebElement phone;
-    @FindBy(id = "web-firstname")
-    private WebElement firstName;
+    private Faker faker = new Faker();
 
-    @FindBy(id="web-lastname")
-    private WebElement lastName;
-    @FindBy(xpath="//span[text()='Выберите статус...']")
-    private WebElement statusDropdown;
-
-    @FindBy(xpath = "//ul/li[text()='Активен']")
-    private WebElement activeStatus;
-    @FindBy(xpath = "//ul/li[text()='Неактивен']")
-    private WebElement noActiveStatus;
-    @FindBy(xpath = "//ul/li[text()='Удален']")
-    private WebElement deleteStatus;
-
-    @FindBy(id="web-password")
-    private WebElement password;
-    @FindBy(id="web-passwordconfirm")
-    private WebElement passwordConfirm;
-    @FindBy(id="web-telegramnick")
-    private WebElement telegramNick;
-    @FindBy(xpath = "//button[@type='submit' and text()='Сохранить']")
-    private WebElement buttonSave;
-
-    @FindBy(id="web-middlename")
-    private WebElement middleName;
-
-    @FindBy(id="web-cpapercent")
-    private WebElement cpaPercent;
-
-
-    public  WebmasterCreationPage(WebDriver driver) {
-        this.driver = driver;
-        this.faker = new Faker();
-        PageFactory.initElements(driver, this);
-    }
+    private SelenideElement email = $("#web-email");
+    private SelenideElement phone = $("#web-phone");
+    private SelenideElement firstName = $("#web-firstname");
+    private SelenideElement lastName = $("#web-lastname");
+    private SelenideElement statusDropdown = $x("//span[text()='Выберите статус...']");
+    private SelenideElement activeStatus = $x("//ul/li[text()='Активен']");
+    private SelenideElement noActiveStatus = $x("//ul/li[text()='Неактивен']");
+    private SelenideElement deleteStatus = $x("//ul/li[text()='Удален']");
+    private SelenideElement password = $("#web-password");
+    private SelenideElement passwordConfirm = $("#web-passwordconfirm");
+    private SelenideElement telegramNick = $("#web-telegramnick");
+    private SelenideElement buttonSave = $x("//button[@type='submit' and text()='Сохранить']");
+    private SelenideElement middleName = $("#web-middlename");
+    private SelenideElement cpaPercent = $("#web-cpapercent");
 
     public void sendEmail() {
         String randomEmail = "activeWM@" + faker.name().firstName().toLowerCase() + ".test";
-        email.sendKeys(randomEmail);
+        email.setValue(randomEmail);
     }
+
     public void sendEmailNoactive() {
         String randomEmail = "noactiveWM@" + faker.name().firstName().toLowerCase() + ".test";
-        email.sendKeys(randomEmail);
+        email.setValue(randomEmail);
     }
+
     public void sendEmailDelete() {
         String randomEmail = "deleteWM@" + faker.name().firstName().toLowerCase() + ".test";
-        email.sendKeys(randomEmail);
+        email.setValue(randomEmail);
     }
 
     public void sendPhone() {
-        String randomPhone =   "7" + faker.number().digits(10);
-        phone.sendKeys(randomPhone);
+        String randomPhone = "7" + faker.number().digits(10);
+        phone.setValue(randomPhone);
     }
-
-
 
     public void sendName() {
         String randomName = faker.name().firstName();
-        firstName.sendKeys(randomName);
+        firstName.setValue(randomName);
     }
 
     public void sendLastName() {
         String randomLastName = faker.name().lastName();
-        lastName.sendKeys(randomLastName);
+        lastName.setValue(randomLastName);
     }
 
     public void selectStatusActive() {
         statusDropdown.click();
         activeStatus.click();
     }
+
     public void selectStatusNoActive() {
         statusDropdown.click();
         noActiveStatus.click();
@@ -98,34 +71,28 @@ public class WebmasterCreationPage {
 
     public void sendPassword() {
         String randomPassword = faker.internet().password(6,8,true,true,true);
-        password.sendKeys(randomPassword);
-        passwordConfirm.sendKeys(randomPassword);
+        password.setValue(randomPassword);
+        passwordConfirm.setValue(randomPassword);
     }
 
     public void sendTelegramNick() {
         String randomTg = faker.name().firstName();
-        telegramNick.sendKeys("@" + randomTg);
+        telegramNick.setValue("@" + randomTg);
     }
 
     public void submitForm() {
         buttonSave.click();
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(3000); // You can use Selenide's sleep, but ideally you'd want to replace this with a more deterministic wait
     }
 
     public void sendMiddleName() {
-        String randomMiddleName =faker.name().firstName();
-        middleName.sendKeys(randomMiddleName);
+        String randomMiddleName = faker.name().firstName();
+        middleName.setValue(randomMiddleName);
     }
 
     public void setCpaPercent() {
-        cpaPercent.sendKeys("10");
+        cpaPercent.setValue("10");
     }
-
 
     public void generateActiveWeb() {
         sendEmail();

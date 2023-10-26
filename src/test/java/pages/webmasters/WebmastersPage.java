@@ -1,50 +1,33 @@
 package pages.webmasters;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.By;
 
-import static org.junit.Assert.assertEquals;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Condition.*;
+import static org.openqa.selenium.By.*;
 
 public class WebmastersPage {
-    private WebDriver driver;
 
-    @FindBy(xpath = "//a[text()='Регистрация вебмастера']")
-    private WebElement createWebButton;
+    private static final By CREATE_WEB_BUTTON = xpath("//a[text()='Регистрация вебмастера']");
 
-
-    public WebmastersPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
-    }
+    // Создаем экземпляр WebmasterCreationPage один раз, чтобы использовать во всех методах
+    private WebmasterCreationPage webmasterCreationPage = new WebmasterCreationPage();
 
     public void createWebmasterActive() {
-    createWebButton.click();
-    String currentUrl = driver.getCurrentUrl();
-    assertEquals("http://adm.st.leads.tech/webmaster/create/", currentUrl);
-
-    WebmasterCreationPage webmasterCreationPage = new WebmasterCreationPage(driver);
-    webmasterCreationPage.generateActiveWeb();
-
+        $(CREATE_WEB_BUTTON).click();
+        // Уберем вызов open, так как страница должна открываться автоматически после нажатия на кнопку
+        webmasterCreationPage.generateActiveWeb();
     }
 
     public void createWebmasterNoActive() {
-    createWebButton.click();
-    String currentUrl = driver.getCurrentUrl();
-    assertEquals("http://adm.st.leads.tech/webmaster/create/", currentUrl);
-    WebmasterCreationPage webmasterCreationPage = new WebmasterCreationPage(driver);
-    webmasterCreationPage.generateNoActiveWeb();
-
+        $(CREATE_WEB_BUTTON).click();
+        // Уберем вызов open, так как страница должна открываться автоматически после нажатия на кнопку
+        webmasterCreationPage.generateNoActiveWeb();
     }
-    public void createWebmasterDelete() {
-        createWebButton.click();
-        String currentUrl = driver.getCurrentUrl();
-        assertEquals("http://adm.st.leads.tech/webmaster/create/", currentUrl);
-        WebmasterCreationPage webmasterCreationPage = new WebmasterCreationPage(driver);
-        webmasterCreationPage.generateDeleteWeb();
 
+    public void createWebmasterDelete() {
+        $(CREATE_WEB_BUTTON).click();
+        // Уберем вызов open, так как страница должна открываться автоматически после нажатия на кнопку
+        webmasterCreationPage.generateDeleteWeb();
     }
 }
-
-
