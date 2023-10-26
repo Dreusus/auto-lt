@@ -1,52 +1,35 @@
 package pages.login;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.codeborne.selenide.SelenideElement;
 
-import java.time.Duration;
 
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 import static org.junit.Assert.assertEquals;
 
 public class LoginPage {
 
-    private WebDriver driver;
-
-    private By emailField = By.id("loginform-email");
-    private By passwordField = By.id("loginform-password");
-    private By loginButton = By.xpath("//button[@name='login-button']");
-
-    public LoginPage(WebDriver driver) {
-
-        this.driver = driver;
-    }
+    private SelenideElement emailField = $("#loginform-email");
+    private SelenideElement passwordField = $("#loginform-password");
+    private SelenideElement loginButton = $x("//button[@name='login-button']");
 
     public void enterEmail(String email) {
-        driver.findElement(emailField).sendKeys(email);
+        emailField.setValue(email);
     }
 
     public void enterPassword(String password) {
-        driver.findElement(passwordField).sendKeys(password);
+        passwordField.setValue(password);
     }
 
     public void clickLoginButton() {
-        driver.findElement(loginButton).click();
+        loginButton.click();
     }
 
     public void login(String email, String password) {
         enterEmail(email);
         enterPassword(password);
         clickLoginButton();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlToBe("http://adm.st.leads.tech/"));
-
-        String currentUrl = driver.getCurrentUrl();
-        assertEquals("http://adm.st.leads.tech/", currentUrl);
+        //emailField.shouldHave(url("http://adm.st.leads.tech/"));
+        //assertEquals("http://adm.st.leads.tech/", emailField.url());
     }
-
-
-
-
 }

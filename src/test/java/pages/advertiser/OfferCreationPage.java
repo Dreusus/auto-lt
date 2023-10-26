@@ -1,79 +1,57 @@
 package pages.advertiser;
 
+import com.codeborne.selenide.SelenideElement;
 import com.github.javafaker.Faker;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
+import static com.codeborne.selenide.Selenide.*;
 
 public class OfferCreationPage {
 
-    private WebDriver driver;
-    private Faker faker;
+    private Faker faker = new Faker();
 
-    @FindBy(id="offer-name")
-    private WebElement name;
-
-    @FindBy(id="offer-slug")
-    private WebElement slug;
-
-    @FindBy(xpath="//span[text()='Выберите статус...']")
-    private WebElement statusDropdown;
-
-    @FindBy(xpath = "//ul/li[text()='Активен']")
-    private WebElement activeStatus;
-
-    @FindBy(xpath = "//ul/li[text()='Приватный']")
-    private WebElement privateStatus;
-    @FindBy(xpath = "//ul/li[text()='Неактивен']")
-    private WebElement noActiveStatus;
-    @FindBy(xpath = "//ul/li[text()='Удален']")
-    private WebElement deleteStatus;
-
-    @FindBy(id="offer-productname")
-    private WebElement offerProductName;
-    @FindBy(xpath = "//span[text()='Выберите рекламодателя...']")
-    private WebElement advertiserDropdown;
-
-    @FindBy(xpath = "//ul/li[text()='181 TestAdvertis']")
-    private WebElement advertiserTest;
-
-    @FindBy(xpath = "//ul[@id='select2-offer-advertiserid-results']/li[1]")
-    private WebElement advertiserFirst;
-
-    public  OfferCreationPage(WebDriver driver) {
-        this.driver = driver;
-        this.faker = new Faker();
-        PageFactory.initElements(driver,this);
-    }
+    private SelenideElement name = $("#offer-name");
+    private SelenideElement slug = $("#offer-slug");
+    private SelenideElement statusDropdown = $x("//span[text()='Выберите статус...']");
+    private SelenideElement activeStatus = $x("//ul/li[text()='Активен']");
+    private SelenideElement privateStatus = $x("//ul/li[text()='Приватный']");
+    private SelenideElement noActiveStatus = $x("//ul/li[text()='Неактивен']");
+    private SelenideElement deleteStatus = $x("//ul/li[text()='Удален']");
+    private SelenideElement offerProductName = $("#offer-productname");
+    private SelenideElement advertiserDropdown = $x("//span[text()='Выберите рекламодателя...']");
+    private SelenideElement advertiserTest = $x("//ul/li[text()='181 TestAdvertis']");
+    private SelenideElement advertiserFirst = $x("//ul[@id='select2-offer-advertiserid-results']/li[1]");
 
     public void sendNameActive() {
         String randomName = "Active_" + faker.name().firstName().toLowerCase();
-        name.sendKeys(randomName);
+        name.setValue(randomName);
     }
+
     public void sendNamePrivate() {
         String randomName = "Private_" + faker.name().firstName().toLowerCase();
-        name.sendKeys(randomName);
+        name.setValue(randomName);
     }
 
     public void sendNameNoActive() {
         String randomName = "NoActive_" + faker.name().firstName().toLowerCase();
-        name.sendKeys(randomName);
+        name.setValue(randomName);
     }
+
     public void sendNameDelete() {
         String randomName = "Delete_" + faker.name().firstName().toLowerCase();
-        name.sendKeys(randomName);
+        name.setValue(randomName);
     }
 
     public void setStatusActive() {
         statusDropdown.click();
         activeStatus.click();
     }
+
     public void setStatusPrivate() {
         statusDropdown.click();
         privateStatus.click();
     }
-    public void setStatusNoActive()   {
+
+    public void setStatusNoActive() {
         statusDropdown.click();
         noActiveStatus.click();
     }
@@ -85,15 +63,13 @@ public class OfferCreationPage {
 
     public void sendSlug() {
         String randomSlug = faker.animal().name();
-        slug.sendKeys(randomSlug);
+        slug.setValue(randomSlug);
     }
 
     public void sendOfferProductName() {
         String randomOfferProductName = faker.job().field();
-        offerProductName.sendKeys(randomOfferProductName);
-
+        offerProductName.setValue(randomOfferProductName);
     }
-
 
     public void setAdvertiserTest() {
         advertiserDropdown.click();
@@ -111,7 +87,5 @@ public class OfferCreationPage {
         sendSlug();
         sendOfferProductName();
         setAdvertiserTest();
-
     }
-
 }

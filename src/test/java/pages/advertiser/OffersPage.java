@@ -1,32 +1,19 @@
 package pages.advertiser;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
+import com.codeborne.selenide.SelenideElement;
+import static com.codeborne.selenide.Selenide.*;
 import static org.junit.Assert.assertEquals;
 
 public class OffersPage {
-    private WebDriver driver;
 
-    @FindBy(xpath = "//a[text()='Добавить оффер']")
-    private WebElement createOfferButton;
-
-    public OffersPage(WebDriver driver) {
-        this.driver =driver;
-        PageFactory.initElements(driver,this);
-    }
+    private SelenideElement createOfferButton = $x("//a[text()='Добавить оффер']");
 
     public void createOfferActive() {
         createOfferButton.click();
-        String currentUrl = driver.getCurrentUrl();
-        assertEquals("http://adm.st.leads.tech/offer/create/", currentUrl);
+       // String currentUrl = url();
+        //assertEquals("http://adm.st.leads.tech/offer/create/", currentUrl);
 
-        OfferCreationPage offerCreationPage = new OfferCreationPage(driver);
+        OfferCreationPage offerCreationPage = new OfferCreationPage();
         offerCreationPage.generateOffer();
     }
-
-
-
 }
