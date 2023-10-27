@@ -61,7 +61,7 @@ public class LeadTech {
     }
 
     @Test
-    public void navigateOffers(){
+    public void createOffers(){
         navigate.navigateToOffersPage();
         offersPage.createOfferActive();
     }
