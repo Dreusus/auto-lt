@@ -2,6 +2,7 @@ package pages.advertiser;
 
 import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.url;
 import static org.junit.Assert.assertEquals;
 
 public class OffersPage {
@@ -10,8 +11,8 @@ public class OffersPage {
 
     public void createOfferActive() {
         createOfferButton.click();
-       // String currentUrl = url();
-        //assertEquals("http://adm.st.leads.tech/offer/create/", currentUrl);
+
+        assertEquals("http://adm.st.leads.tech/offer/create/", url());
 
         OfferCreationPage offerCreationPage = new OfferCreationPage();
         offerCreationPage.generateOffer();
