@@ -1,6 +1,5 @@
 package pages.webmasters;
-
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class WebmastersPage {
 
@@ -10,19 +9,19 @@ public class WebmastersPage {
     private final WebmasterCreationPage webmasterCreationPage = new WebmasterCreationPage();
 
     public void createWebmasterActive() {
-        $(CREATE_WEB_BUTTON).click();
+        $x(CREATE_WEB_BUTTON).click();
         // Уберем вызов open, так как страница должна открываться автоматически после нажатия на кнопку
         webmasterCreationPage.generateActiveWeb();
     }
 
     public void createWebmasterNoActive() {
-        $(CREATE_WEB_BUTTON).click();
+        $x(CREATE_WEB_BUTTON).click();
         // Уберем вызов open, так как страница должна открываться автоматически после нажатия на кнопку
         webmasterCreationPage.generateNoActiveWeb();
     }
 
     public void createWebmasterDelete() {
-        $(CREATE_WEB_BUTTON).click();
+        $x(CREATE_WEB_BUTTON).click();
         // Уберем вызов open, так как страница должна открываться автоматически после нажатия на кнопку
         webmasterCreationPage.generateDeleteWeb();
     }

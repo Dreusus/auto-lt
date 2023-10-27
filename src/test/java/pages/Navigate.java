@@ -1,6 +1,5 @@
 package pages;
-
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class Navigate {
 
@@ -10,12 +9,12 @@ public class Navigate {
     private static final String OFFERS_DROPDOWN_LINK = "//ul/li/a[text()='Офферы']";
 
     public void navigateToWebmastersPage() {
-        $(WEBMASTERS_NAVIGATION_LINK).click();
-        $(WEBMASTER_DROPDOWN_LINK).click();
+        $x(WEBMASTERS_NAVIGATION_LINK).click();
+        $x(WEBMASTER_DROPDOWN_LINK).click();
     }
 
     public void navigateToOffersPage() {
-        $(ADVERTISER_NAVIGATION_LINK).click();
-        $(OFFERS_DROPDOWN_LINK).click();
+        $x(ADVERTISER_NAVIGATION_LINK).click();
+        $x(OFFERS_DROPDOWN_LINK).click();
     }
 }
