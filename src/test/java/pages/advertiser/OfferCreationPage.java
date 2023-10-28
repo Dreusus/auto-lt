@@ -95,7 +95,7 @@ public class OfferCreationPage {
         firstOption.click();
     }
 
-    // Методы для загрузки изображений
+
     public void uploadImage() {
         imageFileButton.uploadFile(new File(PATH_IMAGE));
     }
@@ -104,10 +104,7 @@ public class OfferCreationPage {
         favImageFileButton.uploadFile(new File(PATH_IMAGE));
     }
 
-    // Общий метод создания предложения
-    public void generateOffer() {
-        sendName("Active");
-        setStatus("Активен");
+    public void generateRequireBodyOffer() {
         sendSlug();
         sendOfferProductName();
         selectFirstOption(advertiserDropdown, advertiserFirst);
@@ -118,7 +115,42 @@ public class OfferCreationPage {
         uploadImage();
         uploadFavImage();
         selectFirstOption(trafficBackDropdown, trafficBackFirst);
-        buttonSave.click();
-        sleep(1000);
+
+
     }
+
+
+    public void createOfferActive() {
+        generateRequireBodyOffer();
+        sendName("Active");
+        setStatus("Активен");
+        buttonSave.click();
+        sleep(3000);
+    }
+
+    public void createOfferPrivate() {
+        generateRequireBodyOffer();
+        sendName("Private");
+        setStatus("Приватный");
+        buttonSave.click();
+        sleep(3000);
+    }
+
+    public void createOfferNoActive() {
+        generateRequireBodyOffer();
+        sendName("NoActive");
+        setStatus("Неактивен");
+        buttonSave.click();
+        sleep(3000);
+    }
+
+    public void createOfferDelete() {
+        generateRequireBodyOffer();
+        sendName("Delete");
+        setStatus("Удален");
+        buttonSave.click();
+        sleep(3000);
+    }
+
+
 }

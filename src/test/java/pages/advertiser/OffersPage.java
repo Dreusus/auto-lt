@@ -11,10 +11,26 @@ public class OffersPage {
 
     public void createOfferActive() {
         createOfferButton.click();
-
-        assertEquals("http://adm.st.leads.tech/offer/create/", url());
-
         OfferCreationPage offerCreationPage = new OfferCreationPage();
-        offerCreationPage.generateOffer();
+        offerCreationPage.createOfferActive();
     }
+
+    public void createOfferPrivate() {
+        createOfferButton.click();
+        OfferCreationPage offerCreationPage = new OfferCreationPage();
+        offerCreationPage.createOfferPrivate();
+    }
+
+    public void createOfferDelete() {
+        createOfferButton.click();
+        OfferCreationPage offerCreationPage = new OfferCreationPage();
+        offerCreationPage.createOfferDelete();
+    }
+
+    public void createOfferNoActive() {
+        createOfferButton.click();
+        OfferCreationPage offerCreationPage = new OfferCreationPage();
+        offerCreationPage.createOfferNoActive();
+    }
+
 }

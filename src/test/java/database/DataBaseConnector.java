@@ -33,39 +33,112 @@ public class DataBaseConnector {
     private static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
     }
-
-    public static void printLastCreatedWebmaster() throws SQLException {
-        String query = "SELECT * FROM webmaster ORDER BY \"createDate\" DESC LIMIT 1";
+    public static void printOfferStatusCounts() throws SQLException {
+        String query = "SELECT status, COUNT(*) as count FROM offer WHERE status IN (0, 9, 10, 11) GROUP BY status;";
+        int totalOffers = 0;
 
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
-            // Получаем метаданные о ResultSet
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            int columnCount = metaData.getColumnCount();
+            while (resultSet.next()) {
+                int status = resultSet.getInt("status");
+                int count = resultSet.getInt("count");
+                totalOffers += count;
 
-            if (resultSet.next()) {
-                for (int i = 1; i <= columnCount; i++) {
-                    String columnName = metaData.getColumnName(i);
-                    Object columnValue = resultSet.getObject(i);
-                    // Выводим имя столбца и значение
-                    System.out.println(columnName + ": " + columnValue);
+                switch (status) {
+                    case 10:
+                        System.out.println("Офферов в статусе Активный: " + count);
+                        break;
+                    case 11:
+                        System.out.println("Офферов в статусе Приватный: " + count);
+                        break;
+                    case 9:
+                        System.out.println("Офферов в статусе Неактивый: " + count);
+                        break;
+                    case 0:
+                        System.out.println("Офферов в статусе Удален: " + count);
+                        break;
                 }
-            } else {
-                System.out.println("Вебмастер не найден.");
             }
+            System.out.println("Всего офферов: " + totalOffers);
+        }
+    }
 
+    public static void printWebmasterStatusCount() throws  SQLException {
+        String query = "SELECT status, COUNT(*) as count FROM webmaster WHERE status IN (0, 9, 10) GROUP BY status;";
+        int totalWebmaster = 0;
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                int status = resultSet.getInt("status");
+                int count = resultSet.getInt("count");
+                totalWebmaster += count;
+
+                switch (status) {
+                    case 10:
+                        System.out.println("Вебмастеров в статусе Активный: " + count);
+                        break;
+                    case 9:
+                        System.out.println("Вебмастеров в статусе Неактивый: " + count);
+                        break;
+                    case 0:
+                        System.out.println("Вебмастеров в статусе Удален: " + count);
+                        break;
+                }
+            }
+            System.out.println("Всего вебмастеров: " + totalWebmaster);
+        }
+
+    }
+    public static void printWebmasterOfferConnectionStatusCounts() throws SQLException {
+        String query = "SELECT w.id, w.\"firstName\", w.\"lastName\", owc.status, COUNT(owc.status) " +
+                "FROM \"webmaster\" w " +
+                "LEFT JOIN \"offerWebmasterConnection\" owc ON w.id = owc.\"webmasterId\" " +
+                "WHERE w.id = (SELECT id FROM \"webmaster\" ORDER BY \"createDate\" DESC LIMIT 1) " +
+                "GROUP BY w.id, w.\"firstName\", w.\"lastName\", owc.status";
+
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement()) {
+
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                int webmasterId = resultSet.getInt("id");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                int status = resultSet.getInt("status");
+                int count = resultSet.getInt("count");
+
+                System.out.println("Webmaster ID: " + webmasterId + ", Имя: " + firstName + ", Фамилия: " + lastName + ", Статус: " + status + ", Количество: " + count);
+            }
         }
     }
 
 
 
-    public static void main(String[] args) {
-        try {
-            printLastCreatedWebmaster();
-        } catch (SQLException e) {
-            System.err.println("Произошла ошибка при работе с базой данных: " + e.getMessage());
+
+    public static void printOfferWebmasterConnectionStatusCounts()  throws SQLException{
+        String query = "SELECT o.id, o.name, owc.status, COUNT(owc.status) " +
+                "FROM \"offer\" o " +
+                "LEFT JOIN \"offerWebmasterConnection\" owc ON o.id = owc.\"offerId\" " +
+                "WHERE o.id = (SELECT id FROM \"offer\" ORDER BY \"createDate\" DESC LIMIT 1) " +
+                "GROUP BY o.id, o.name, owc.status";
+
+        try (Connection connection = getConnection();
+            Statement statement = connection.createStatement()) {
+
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                int offerId = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                int status = resultSet.getInt("status");
+                int count = resultSet.getInt("count");
+
+                System.out.println("OfferID: " + offerId + ", Имя " + name + ",Статус: " + status + ", Количество: " + count);
+            }
         }
     }
 }
+
