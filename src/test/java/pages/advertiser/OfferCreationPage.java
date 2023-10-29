@@ -63,7 +63,7 @@ public class OfferCreationPage {
     }
 
     public void sendSlug() {
-        String randomSlug = faker.animal().name();
+        String randomSlug = faker.cat().name().toLowerCase();
         slug.setValue(randomSlug);
     }
 
@@ -159,6 +159,23 @@ public class OfferCreationPage {
         buttonSave.click();
         $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
     }
+
+    public void editOffer(String newName, String newSlug, String newLicence, String newErid,
+                          String newMinAge, String newMaxAge, String newHold )
+    {
+            name.setValue(newName);
+            slug.setValue(newSlug);
+            licence.setValue(newLicence);
+            erid.setValue(newErid);
+            minAge.setValue(newMinAge);
+            maxAge.setValue(newMaxAge);
+            hold.setValue(newHold);
+            //setStatus(newStatus);
+          //  selectFirstOption(categoryDropdown, $x("//ul/li[text()='" + newCategory + "']"));
+           // selectFirstOption(countryDropdown, $x("//ul/li[text()='" + newCountry + "']"));
+            buttonSave.click();
+    }
+
 
 
 }

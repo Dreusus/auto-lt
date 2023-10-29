@@ -33,6 +33,7 @@ public class DataBaseConnector {
     private static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
     }
+
     public static void printOfferStatusCounts() throws SQLException {
         String query = "SELECT status, COUNT(*) as count FROM offer WHERE status IN (0, 9, 10, 11) GROUP BY status;";
         int totalOffers = 0;
@@ -116,9 +117,6 @@ public class DataBaseConnector {
         }
     }
 
-
-
-
     public static void printOfferWebmasterConnectionStatusCounts()  throws SQLException{
         String query = "SELECT o.id, o.name, owc.status, COUNT(owc.status) " +
                 "FROM \"offer\" o " +
@@ -140,5 +138,25 @@ public class DataBaseConnector {
             }
         }
     }
+
+
+    public static void printOfferCreatedDates() throws SQLException {
+        String query = "SELECT id, name, \"createDate\", \"updateDate\" from offer ORDER BY \"createDate\" DESC LIMIT 1";
+
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement()) {
+
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                int offerId = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                Timestamp createDate = resultSet.getTimestamp("createDate");
+                Timestamp updateDate = resultSet.getTimestamp("updateDate");
+                System.out.println("OfferID: " + offerId + ", Имя " + name + ",Дата создания: " + createDate + ", Дата обновления: " + updateDate);
+            }
+        }
+    }
+
+
 }
 
