@@ -3,11 +3,17 @@ package pages.webmasters;
 import com.codeborne.selenide.SelenideElement;
 import com.github.javafaker.Faker;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.appear;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverConditions.url;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class WebmasterCreationPage {
 
-    private Faker faker = new Faker();
+    private static final Faker faker = new Faker();
 
     //Обязательные поля
     private SelenideElement email = $("#web-email");
@@ -112,11 +118,8 @@ public class WebmasterCreationPage {
 
     public void submitForm() {
         buttonSave.click();
-        sleep(3000);
+        $x("//ul/li[@class='active' and text()='Редактирование']").shouldBe(visible);
     }
-
-
-
 
 
 
@@ -128,23 +131,24 @@ public class WebmasterCreationPage {
         selectStatus(status);
     }
 
-    public void  generateActiveWeb() {
-       fillRequiredFieldsWebMaster(WebmasterStatus.ACTIVE);
-       setCpaPercent();
-       enterTelegramNick();
-       enterPhone();
-       enterMiddleName();
-       //selectManager();
-       submitForm();
+    public void  createActiveWeb() {
+        fillRequiredFieldsWebMaster(WebmasterStatus.ACTIVE);
+        setCpaPercent();
+        enterTelegramNick();
+        enterPhone();
+        enterMiddleName();
+        //selectManager();
+        submitForm();
     }
 
-    public void generateNoActiveWeb() {
+
+    public void createNoActiveWeb() {
         fillRequiredFieldsWebMaster(WebmasterStatus.NO_ACTIVE);
         submitForm();
     }
 
 
-    public void generateDeleteWeb() {
+    public void createDeleteWeb() {
         fillRequiredFieldsWebMaster(WebmasterStatus.DELETED);
         submitForm();
     }

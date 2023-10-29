@@ -8,8 +8,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import pages.Navigate;
+import pages.advertiser.OfferCreationPage;
 import pages.advertiser.OffersPage;
 import pages.login.LoginPage;
+import pages.webmasters.WebmasterCreationPage;
 import pages.webmasters.WebmastersPage;
 
 import java.sql.SQLException;
@@ -26,7 +28,8 @@ public class LeadTech {
     private Navigate navigate;
     private WebmastersPage webmastersPage;
     private OffersPage offersPage;
-
+    private WebmasterCreationPage webmasterCreationPage;
+    private OfferCreationPage offerCreationPage;
     @Before
     public void setup() {
         WebDriverManager.chromedriver().setup();
@@ -38,7 +41,8 @@ public class LeadTech {
         navigate = new Navigate();
         webmastersPage = new WebmastersPage();
         offersPage = new OffersPage();
-
+        webmasterCreationPage = new WebmasterCreationPage();
+        offerCreationPage = new OfferCreationPage();
         loginPage.login(LOGIN_EMAIL, LOGIN_PASSWORD);
     }
 
@@ -48,10 +52,12 @@ public class LeadTech {
     @Test
     public void createActiveWM() {
         navigate.navigateToWebmastersPage();
-        webmastersPage.createWebmasterActive();
+        webmastersPage.goToWebmasterRegistration();
+        webmasterCreationPage.createActiveWeb();
+         sleep(2000);
         try {
             DataBaseConnector.printOfferStatusCounts();
-            DataBaseConnector.printOfferWebmasterConnectionStatusCounts();
+            DataBaseConnector.printWebmasterOfferConnectionStatusCounts();
         } catch (SQLException e) {
             System.err.println("Произошла ошибка при работе с базой данных: " + e.getMessage());
         }
@@ -60,10 +66,12 @@ public class LeadTech {
     @Test
     public void createNoActiveWM() {
         navigate.navigateToWebmastersPage();
-        webmastersPage.createWebmasterNoActive();
+        webmastersPage.goToWebmasterRegistration();
+        webmasterCreationPage.createNoActiveWeb();
+        sleep(2000);
         try {
             DataBaseConnector.printOfferStatusCounts();
-            DataBaseConnector.printOfferWebmasterConnectionStatusCounts();
+            DataBaseConnector.printWebmasterOfferConnectionStatusCounts();
         } catch (SQLException e) {
             System.err.println("Произошла ошибка при работе с базой данных: " + e.getMessage());
         }
@@ -72,7 +80,9 @@ public class LeadTech {
     @Test
     public void createDeleteWM() {
         navigate.navigateToWebmastersPage();
-        webmastersPage.createWebmasterDelete();
+        webmastersPage.goToWebmasterRegistration();
+        webmasterCreationPage.createDeleteWeb();
+        sleep(2000);
         try {
             DataBaseConnector.printOfferStatusCounts();
             DataBaseConnector.printWebmasterOfferConnectionStatusCounts();
@@ -84,7 +94,10 @@ public class LeadTech {
     @Test
     public void createOfferActive(){
         navigate.navigateToOffersPage();
-        offersPage.createOfferActive();
+        offersPage.goToOfferRegistration();
+        offerCreationPage.createOfferActive();
+        sleep(2000);
+
         try {
             DataBaseConnector.printWebmasterStatusCount();
             DataBaseConnector.printOfferWebmasterConnectionStatusCounts();
@@ -96,14 +109,42 @@ public class LeadTech {
     @Test
     public void createOfferPrivate(){
         navigate.navigateToOffersPage();
-        offersPage.createOfferPrivate();
+        offersPage.goToOfferRegistration();
+        offerCreationPage.createOfferPrivate();
+        sleep(2000);
         try {
-            DataBaseConnector.printOfferStatusCounts();
+            DataBaseConnector.printWebmasterStatusCount();
             DataBaseConnector.printOfferWebmasterConnectionStatusCounts();
         } catch (SQLException e) {
             System.err.println("Произошла ошибка при работе с базой данных: " + e.getMessage());
         }
     }
+
+    @Test
+    public void createOfferNoActive(){
+        navigate.navigateToOffersPage();
+        offersPage.goToOfferRegistration();
+        offerCreationPage.createOfferNoActive();
+        try {
+            DataBaseConnector.printWebmasterStatusCount();
+            DataBaseConnector.printOfferWebmasterConnectionStatusCounts();
+        } catch (SQLException e) {
+            System.err.println("Произошла ошибка при работе с базой данных: " + e.getMessage());
+        }
+    }
+    @Test
+    public void createOfferDelete(){
+        navigate.navigateToOffersPage();
+        offersPage.goToOfferRegistration();
+        offerCreationPage.createOfferDelete();
+        try {
+            DataBaseConnector.printWebmasterStatusCount();
+            DataBaseConnector.printOfferWebmasterConnectionStatusCounts();
+        } catch (SQLException e) {
+            System.err.println("Произошла ошибка при работе с базой данных: " + e.getMessage());
+        }
+    }
+
 
 
     @After

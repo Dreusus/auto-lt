@@ -61,7 +61,7 @@ public class DataBaseConnector {
                         break;
                 }
             }
-            System.out.println("Всего офферов: " + totalOffers);
+           // System.out.println("Всего офферов: " + totalOffers);
         }
     }
 

@@ -8,29 +8,11 @@ import static org.junit.Assert.assertEquals;
 public class OffersPage {
 
     private SelenideElement createOfferButton = $x("//a[text()='Добавить оффер']");
+    private final OfferCreationPage offerCreationPage = new OfferCreationPage();
 
-    public void createOfferActive() {
+    public void goToOfferRegistration() {
         createOfferButton.click();
-        OfferCreationPage offerCreationPage = new OfferCreationPage();
-        offerCreationPage.createOfferActive();
     }
-
-    public void createOfferPrivate() {
-        createOfferButton.click();
-        OfferCreationPage offerCreationPage = new OfferCreationPage();
-        offerCreationPage.createOfferPrivate();
-    }
-
-    public void createOfferDelete() {
-        createOfferButton.click();
-        OfferCreationPage offerCreationPage = new OfferCreationPage();
-        offerCreationPage.createOfferDelete();
-    }
-
-    public void createOfferNoActive() {
-        createOfferButton.click();
-        OfferCreationPage offerCreationPage = new OfferCreationPage();
-        offerCreationPage.createOfferNoActive();
-    }
-
 }
+
+

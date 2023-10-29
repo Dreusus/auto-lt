@@ -5,6 +5,7 @@ import com.github.javafaker.Faker;
 
 import java.io.File;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class OfferCreationPage {
@@ -46,10 +47,19 @@ public class OfferCreationPage {
     private final SelenideElement trafficBackDropdown = $x("//span[@id='select2-offer-trafficbackid-container']");
     private final SelenideElement trafficBackFirst = $x("//ul[@id='select2-offer-trafficbackid-results']/li[1]");
 
+    private String randomName;
+
     // Методы для работы с полями
     public void sendName(String prefix) {
-        String randomName = prefix + "_" + faker.name().firstName().toLowerCase();
+        randomName = generateRandomName(prefix);
         name.setValue(randomName);
+    }
+
+
+
+    public String generateRandomName(String prefix) {
+        randomName = prefix + "_" + faker.name().firstName().toLowerCase();
+        return randomName;
     }
 
     public void sendSlug() {
@@ -104,7 +114,7 @@ public class OfferCreationPage {
         favImageFileButton.uploadFile(new File(PATH_IMAGE));
     }
 
-    public void generateRequireBodyOffer() {
+    public void fillRequiredFieldsOffer() {
         sendSlug();
         sendOfferProductName();
         selectFirstOption(advertiserDropdown, advertiserFirst);
@@ -115,41 +125,39 @@ public class OfferCreationPage {
         uploadImage();
         uploadFavImage();
         selectFirstOption(trafficBackDropdown, trafficBackFirst);
-
-
     }
 
 
     public void createOfferActive() {
-        generateRequireBodyOffer();
+        fillRequiredFieldsOffer();
         sendName("Active");
         setStatus("Активен");
         buttonSave.click();
-        sleep(3000);
+        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
     }
 
     public void createOfferPrivate() {
-        generateRequireBodyOffer();
+        fillRequiredFieldsOffer();
         sendName("Private");
         setStatus("Приватный");
         buttonSave.click();
-        sleep(3000);
+        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
     }
 
     public void createOfferNoActive() {
-        generateRequireBodyOffer();
+        fillRequiredFieldsOffer();
         sendName("NoActive");
         setStatus("Неактивен");
         buttonSave.click();
-        sleep(3000);
+        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
     }
 
     public void createOfferDelete() {
-        generateRequireBodyOffer();
+        fillRequiredFieldsOffer();
         sendName("Delete");
         setStatus("Удален");
         buttonSave.click();
-        sleep(3000);
+        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
     }
 
 
