@@ -17,12 +17,9 @@ import pages.webmasters.WebmastersPage;
 import java.sql.SQLException;
 
 import static com.codeborne.selenide.Selenide.*;
+import static config.Constants.*;
 
 public class LeadTech {
-
-    private static final String STAND_1 = "http://adm.st.leads.tech";
-    private static final String LOGIN_EMAIL = "pitak@dreusus.ru";
-    private static final String LOGIN_PASSWORD = "pitak@dreusus.ru";
 
     private LoginPage loginPage;
     private Navigate navigate;
@@ -36,7 +33,6 @@ public class LeadTech {
         Configuration.browser = "chrome";
 
         open(STAND_1);
-
         loginPage = new LoginPage();
         navigate = new Navigate();
         webmastersPage = new WebmastersPage();
@@ -45,8 +41,6 @@ public class LeadTech {
         offerCreationPage = new OfferCreationPage();
         loginPage.login(LOGIN_EMAIL, LOGIN_PASSWORD);
     }
-
-
 
 
     @Test
