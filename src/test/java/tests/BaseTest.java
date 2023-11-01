@@ -22,7 +22,7 @@ public abstract class BaseTest {
 
     @Before
     public void setup() {
-        open(STAND_1);
+        open(STAND_2);
         loginPage = new LoginPage();
         loginPage.login(LOGIN_EMAIL, LOGIN_PASSWORD);
     }

@@ -28,11 +28,22 @@ public class OffersTests extends BaseTest {
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferActive();
-        sleep(2000);
+        sleep(3000);
 
         try {
             DataBaseConnector.printWebmasterStatusCount();
             DataBaseConnector.printOfferWebmasterConnectionStatusCounts();
+        } catch (SQLException e) {
+            System.err.println("Произошла ошибка при работе с базой данных: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void statusCon() {
+        try {
+            DataBaseConnector.printWebmasterStatusCount();
+            DataBaseConnector.printOfferWebmasterConnectionStatusCounts();
+            DataBaseConnector.printWebmasterOfferConnectionStatusCounts();
         } catch (SQLException e) {
             System.err.println("Произошла ошибка при работе с базой данных: " + e.getMessage());
         }
@@ -83,14 +94,14 @@ public class OffersTests extends BaseTest {
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferActive();
-        sleep(2000);
+        sleep(3000);
         try {
             DataBaseConnector.printOfferCreatedDates();
         } catch (SQLException e) {
             System.err.println("Произошла ошибка при работе с базой данных: " + e.getMessage());
         }
         offerCreationPage.editOffer("Active_Rename","reslug","222222","222222","0","20","1");
-        sleep(2000);
+        sleep(3000);
         try {
             DataBaseConnector.printOfferCreatedDates();
         } catch (SQLException e) {
