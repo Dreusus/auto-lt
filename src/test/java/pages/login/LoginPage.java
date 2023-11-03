@@ -29,7 +29,5 @@ public class LoginPage {
         enterEmail(email);
         enterPassword(password);
         clickLoginButton();
-        //emailField.shouldHave(url("http://adm.st.leads.tech/"));
-        //assertEquals("http://adm.st.leads.tech/", emailField.url());
     }
 }

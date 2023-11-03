@@ -19,13 +19,13 @@ public class DataBaseConnector {
             properties.load(inputStream);
 
 
-          /*  dbUrl = properties.getProperty("db.url");
+            dbUrl = properties.getProperty("db.url");
             dbUser = properties.getProperty("db.user");
-            dbPassword = properties.getProperty("db.password"); */
+            dbPassword = properties.getProperty("db.password");
 
-            dbUrl = properties.getProperty("db2.url");
+        /*     dbUrl = properties.getProperty("db2.url");
             dbUser = properties.getProperty("db2.user");
-            dbPassword = properties.getProperty("db2.password");
+            dbPassword = properties.getProperty("db2.password"); */
 
             // Загрузка JDBC драйвера
             Class.forName("org.postgresql.Driver");

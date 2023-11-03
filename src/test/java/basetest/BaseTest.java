@@ -1,4 +1,4 @@
-package tests;
+package basetest;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
@@ -22,7 +22,7 @@ public abstract class BaseTest {
 
     @Before
     public void setup() {
-        open(STAND_2);
+        open(STAND_1);
         loginPage = new LoginPage();
         loginPage.login(LOGIN_EMAIL, LOGIN_PASSWORD);
     }

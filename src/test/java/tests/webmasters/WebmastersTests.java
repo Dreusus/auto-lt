@@ -1,6 +1,6 @@
 package tests.webmasters;
 
-import tests.BaseTest;
+import basetest.BaseTest;
 
 
 public class WebmastersTests extends BaseTest {

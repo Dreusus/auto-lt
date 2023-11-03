@@ -172,7 +172,6 @@ public class WebmasterCreationPage {
         enterWebPayForm();
         enterWebOtherContacts();
         submitForm();
-
     }
 
 }
