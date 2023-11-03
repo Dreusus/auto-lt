@@ -5,6 +5,7 @@ import com.github.javafaker.Faker;
 
 import java.io.File;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class OfferCreationPage {
@@ -46,14 +47,23 @@ public class OfferCreationPage {
     private final SelenideElement trafficBackDropdown = $x("//span[@id='select2-offer-trafficbackid-container']");
     private final SelenideElement trafficBackFirst = $x("//ul[@id='select2-offer-trafficbackid-results']/li[1]");
 
+    private String randomName;
+
     // Методы для работы с полями
     public void sendName(String prefix) {
-        String randomName = prefix + "_" + faker.name().firstName().toLowerCase();
+        randomName = generateRandomName(prefix);
         name.setValue(randomName);
     }
 
+
+
+    public String generateRandomName(String prefix) {
+        randomName = prefix + "_" + faker.name().firstName().toLowerCase();
+        return randomName;
+    }
+
     public void sendSlug() {
-        String randomSlug = faker.animal().name();
+        String randomSlug = faker.cat().name().toLowerCase();
         slug.setValue(randomSlug);
     }
 
@@ -95,7 +105,7 @@ public class OfferCreationPage {
         firstOption.click();
     }
 
-    // Методы для загрузки изображений
+
     public void uploadImage() {
         imageFileButton.uploadFile(new File(PATH_IMAGE));
     }
@@ -104,10 +114,7 @@ public class OfferCreationPage {
         favImageFileButton.uploadFile(new File(PATH_IMAGE));
     }
 
-    // Общий метод создания предложения
-    public void generateOffer() {
-        sendName("Active");
-        setStatus("Активен");
+    public void fillRequiredFieldsOffer() {
         sendSlug();
         sendOfferProductName();
         selectFirstOption(advertiserDropdown, advertiserFirst);
@@ -118,7 +125,57 @@ public class OfferCreationPage {
         uploadImage();
         uploadFavImage();
         selectFirstOption(trafficBackDropdown, trafficBackFirst);
-        buttonSave.click();
-        sleep(1000);
     }
+
+
+    public void createOfferActive() {
+        fillRequiredFieldsOffer();
+        sendName("Active");
+        setStatus("Активен");
+        buttonSave.click();
+        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
+    }
+
+    public void createOfferPrivate() {
+        fillRequiredFieldsOffer();
+        sendName("Private");
+        setStatus("Приватный");
+        buttonSave.click();
+        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
+    }
+
+    public void createOfferNoActive() {
+        fillRequiredFieldsOffer();
+        sendName("NoActive");
+        setStatus("Неактивен");
+        buttonSave.click();
+        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
+    }
+
+    public void createOfferDelete() {
+        fillRequiredFieldsOffer();
+        sendName("Delete");
+        setStatus("Удален");
+        buttonSave.click();
+        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
+    }
+
+    public void editOffer(String newName, String newSlug, String newLicence, String newErid,
+                          String newMinAge, String newMaxAge, String newHold )
+    {
+            name.setValue(newName);
+            slug.setValue(newSlug);
+            licence.setValue(newLicence);
+            erid.setValue(newErid);
+            minAge.setValue(newMinAge);
+            maxAge.setValue(newMaxAge);
+            hold.setValue(newHold);
+            //setStatus(newStatus);
+          //  selectFirstOption(categoryDropdown, $x("//ul/li[text()='" + newCategory + "']"));
+           // selectFirstOption(countryDropdown, $x("//ul/li[text()='" + newCountry + "']"));
+            buttonSave.click();
+    }
+
+
+
 }
