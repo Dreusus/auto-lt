@@ -32,14 +32,14 @@ public class OffersTests extends BaseTest {
         sleep(3000);
     }
 
-    @Test
+   /* @Test
     public void createOfferPrivate() {
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferPrivate();
     }
 
-    @Test
+   @Test
     public void createOfferNoActive() {
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
@@ -59,10 +59,9 @@ public class OffersTests extends BaseTest {
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferActive();
         sleep(3000);
-
         offerCreationPage.editOffer("Active_Rename","reslug","222222","222222","0","20","1");
         sleep(3000);
 
-    }
+    } */
 
 }

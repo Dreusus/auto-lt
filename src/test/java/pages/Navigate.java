@@ -1,5 +1,5 @@
 package pages;
-import io.qameta.allure.Step;
+
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -42,13 +42,13 @@ public class Navigate {
     private static final String WEB_POSTBACK  = "//a[@href='/webmaster-postback/index/']";
     private static final String WEB_POSTBACK_LOG = "//a[@href='/webmaster-postback-log/index/']";
 
-    @Step("Переход в раздел Вебмастера/Вебмастера")
+
     public void navigateToWebmastersPage() {
         $x(WEB_BUTTON).click();
         $x(WEB_WEBMASTER).click();
     }
 
-    @Step("Переход в раздел Рекламодатели/Офферы")
+
     public void navigateToOffersPage() {
         $x(ADV_BUTTON).click();
         $x(ADV_OFFER).click();

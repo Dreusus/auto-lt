@@ -35,7 +35,7 @@ public class DataBaseConnector {
     }
 
     //Установление соединения с БД
-    private static Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
     }
 
@@ -67,7 +67,7 @@ public class DataBaseConnector {
                         break;
                 }
             }
-           // System.out.println("Всего офферов: " + totalOffers);
+            // System.out.println("Всего офферов: " + totalOffers);
         }
     }
 
@@ -130,7 +130,7 @@ public class DataBaseConnector {
                 "GROUP BY o.id, o.name, owc.status";
 
         try (Connection connection = getConnection();
-            Statement statement = connection.createStatement()) {
+             Statement statement = connection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
@@ -164,4 +164,3 @@ public class DataBaseConnector {
 
 
 }
-

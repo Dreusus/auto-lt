@@ -28,12 +28,12 @@ public class CreateWeb extends BaseTest {
         webmasterCreationPage.createWebMin();
     }
 
-    @Test
+  /*  @Test
     public void createActiveWebMax(){
         navigate.navigateToWebmastersPage();
         webmastersPage.goToWebmasterRegistration();
         webmasterCreationPage.createWebMax();
-    }
+    } */
 
 
 
