@@ -37,3 +37,7 @@ build/
 ### Mac OS ###
 .DS_Store
 src/test/java/config/database.properties
+
+# Ignore Allure report directory
+allure-report/
+.allure
