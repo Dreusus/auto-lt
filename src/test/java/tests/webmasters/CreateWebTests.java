@@ -1,15 +1,13 @@
 package tests.webmasters;
 
 import com.codeborne.selenide.Selenide;
-import database.DataBaseConnector;
+import io.qameta.allure.Description;
 import org.junit.After;
 import org.junit.Test;
 import pages.Navigate;
 import pages.webmasters.WebmasterCreationPage;
 import pages.webmasters.WebmastersPage;
 import basetest.BaseTest;
-
-import java.sql.SQLException;
 
 public class CreateWeb extends BaseTest {
     private Navigate navigate;
@@ -21,19 +19,21 @@ public class CreateWeb extends BaseTest {
         webmastersPage = new WebmastersPage();
         webmasterCreationPage = new WebmasterCreationPage();
     }
-    @Test
+
+
     public void createActiveWebMin() {
         navigate.navigateToWebmastersPage();
         webmastersPage.goToWebmasterRegistration();
         webmasterCreationPage.createWebMin();
     }
 
-  /*  @Test
+    @Test
+    @Description("Создание веба с обязательными параметрами")
     public void createActiveWebMax(){
         navigate.navigateToWebmastersPage();
         webmastersPage.goToWebmasterRegistration();
         webmasterCreationPage.createWebMax();
-    } */
+    }
 
 
 

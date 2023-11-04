@@ -16,7 +16,7 @@ public class dbTests {
     }
 
     @Test
-    public void art() throws SQLException {
+    public void printWebStatus() throws SQLException {
         dbWebmasterStatus.printWebmasterStatusCount();
     }
 
