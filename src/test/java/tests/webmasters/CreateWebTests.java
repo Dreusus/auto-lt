@@ -8,31 +8,35 @@ import pages.Navigate;
 import pages.webmasters.WebmasterCreationPage;
 import pages.webmasters.WebmastersPage;
 import basetest.BaseTest;
+import Objects.Webmaster;
 
-public class CreateWeb extends BaseTest {
+public class CreateWebTests extends BaseTest {
     private Navigate navigate;
     private WebmastersPage webmastersPage;
     private WebmasterCreationPage webmasterCreationPage;
 
-    public CreateWeb(){
+    public CreateWebTests(){
         navigate = new Navigate();
         webmastersPage = new WebmastersPage();
         webmasterCreationPage = new WebmasterCreationPage();
     }
 
-
+ @Test
+ @Description("Создание вебмастера со всеми обязательными параметрами")
     public void createActiveWebMin() {
+        Webmaster webmaster = new Webmaster();
         navigate.navigateToWebmastersPage();
         webmastersPage.goToWebmasterRegistration();
-        webmasterCreationPage.createWebMin();
+        webmasterCreationPage.createWebMin(webmaster);
     }
 
     @Test
-    @Description("Создание веба с обязательными параметрами")
+    @Description("Создание веба со всеми возможными параметрами")
     public void createActiveWebMax(){
+        Webmaster webmaster = new Webmaster();
         navigate.navigateToWebmastersPage();
         webmastersPage.goToWebmasterRegistration();
-        webmasterCreationPage.createWebMax();
+        webmasterCreationPage.createWebMax(webmaster);
     }
 
 

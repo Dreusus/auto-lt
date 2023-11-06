@@ -27,8 +27,5 @@ public abstract class BaseTest {
         loginPage.login(LOGIN_EMAIL, LOGIN_PASSWORD);
     }
 
-    @After
-    public void teardown() {
-        Selenide.closeWebDriver();
-    }
+
 }

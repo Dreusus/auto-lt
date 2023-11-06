@@ -1,16 +1,18 @@
 package tests.offers;
 
+import static com.codeborne.selenide.Selenide.sleep;
 
-import database.DataBaseConnector;
+import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
 
+import org.junit.After;
 import org.junit.Test;
 import pages.Navigate;
 import pages.advertiser.OfferCreationPage;
 import pages.advertiser.OffersPage;
 import basetest.BaseTest;
 
-import java.sql.SQLException;
-import static com.codeborne.selenide.Selenide.sleep;
 
 public class OffersTests extends BaseTest {
 
@@ -24,7 +26,7 @@ public class OffersTests extends BaseTest {
         offerCreationPage = new OfferCreationPage();
     }
 
-    @Test
+
     public void createOfferActive() {
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
@@ -32,28 +34,31 @@ public class OffersTests extends BaseTest {
         sleep(3000);
     }
 
-   /* @Test
+
+
+    @Description("созданиыва")
     public void createOfferPrivate() {
+        Allure.step("arwe");
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferPrivate();
     }
 
-   @Test
+
     public void createOfferNoActive() {
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferNoActive();
     }
 
-    @Test
+
     public void createOfferDelete() {
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferDelete();
     }
 
-    @Test
+
     public void editCreatedOffer() {
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
@@ -61,7 +66,11 @@ public class OffersTests extends BaseTest {
         sleep(3000);
         offerCreationPage.editOffer("Active_Rename","reslug","222222","222222","0","20","1");
         sleep(3000);
+    }
 
-    } */
+    @After
+    public void teardown() {
+        Selenide.closeWebDriver();
+    }
 
 }
