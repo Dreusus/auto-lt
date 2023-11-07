@@ -1,7 +1,8 @@
 package pages.advertiser;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.javafaker.Faker;
+import Objects.Offer;
+import org.junit.Test;
 
 import java.io.File;
 
@@ -11,7 +12,6 @@ import static com.codeborne.selenide.Selenide.*;
 public class OfferCreationPage {
     // Константы и генератор случайных данных
     public static final String PATH_IMAGE = "image.png";
-    private final Faker faker = new Faker();
 
     // Элементы управления и поля
     private final SelenideElement buttonSave = $x("//button[@type='submit' and text()='Сохранить']");
@@ -47,39 +47,8 @@ public class OfferCreationPage {
     private final SelenideElement trafficBackDropdown = $x("//span[@id='select2-offer-trafficbackid-container']");
     private final SelenideElement trafficBackFirst = $x("//ul[@id='select2-offer-trafficbackid-results']/li[1]");
 
-    private String randomName;
-
-    // Методы для работы с полями
-    public void sendName(String prefix) {
-        randomName = generateRandomName(prefix);
-        name.setValue(randomName);
-    }
 
 
-
-    public String generateRandomName(String prefix) {
-        randomName = prefix + "_" + faker.name().firstName().toLowerCase();
-        return randomName;
-    }
-
-    public void sendSlug() {
-        String randomSlug = faker.cat().name().toLowerCase();
-        slug.setValue(randomSlug);
-    }
-
-    public void sendOfferProductName() {
-        String randomOfferProductName = faker.job().field();
-        offerProductName.setValue(randomOfferProductName);
-    }
-
-    public void sendFixedData() {
-        licence.setValue("111111");
-        erid.setValue("111111");
-        minAge.setValue("18");
-        maxAge.setValue("100");
-        hold.setValue("0");
-        offerLink.setValue("https://google.by/?clickId={clickId}&wmid={webmasterid}");
-    }
 
     public void setStatus(String statusName) {
         statusDropdown.click();
@@ -99,12 +68,10 @@ public class OfferCreationPage {
         }
     }
 
-    // Методы для работы с выпадающими списками
     public void selectFirstOption(SelenideElement dropdown, SelenideElement firstOption) {
         dropdown.click();
         firstOption.click();
     }
-
 
     public void uploadImage() {
         imageFileButton.uploadFile(new File(PATH_IMAGE));
@@ -114,53 +81,55 @@ public class OfferCreationPage {
         favImageFileButton.uploadFile(new File(PATH_IMAGE));
     }
 
-    public void fillRequiredFieldsOffer() {
-        sendSlug();
-        sendOfferProductName();
+    public void fillRequiredFieldsOffer(Offer offer) {
+        name.setValue(offer.getName());
+        slug.setValue(offer.getSlug());
+        offerProductName.setValue(offer.getOfferProductName());
         selectFirstOption(advertiserDropdown, advertiserFirst);
         selectFirstOption(currencyDropdown, currencyFirst);
         selectFirstOption(categoryDropdown, categoryFirst);
         selectFirstOption(countryDropdown, countryFirst);
-        sendFixedData();
+        licence.setValue(offer.getLicense().toString());
+        erid.setValue(offer.getErid().toString());
+        minAge.setValue(offer.getMinAge().toString());
+        maxAge.setValue(offer.getMaxAge().toString());
+        hold.setValue(offer.getHold().toString());
+        offerLink.setValue(offer.getOfferLink());
         uploadImage();
         uploadFavImage();
         selectFirstOption(trafficBackDropdown, trafficBackFirst);
     }
 
-
-    public void createOfferActive() {
-        fillRequiredFieldsOffer();
-        sendName("Active");
+    @Test
+    public void createOfferActive(Offer offer) {
+        fillRequiredFieldsOffer(offer);
         setStatus("Активен");
         buttonSave.click();
-        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
+        $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
     }
 
-    public void createOfferPrivate() {
-        fillRequiredFieldsOffer();
-        sendName("Private");
+    public void createOfferPrivate(Offer offer) {
+        fillRequiredFieldsOffer(offer);
         setStatus("Приватный");
         buttonSave.click();
-        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
+        $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
     }
 
-    public void createOfferNoActive() {
-        fillRequiredFieldsOffer();
-        sendName("NoActive");
+    public void createOfferNoActive(Offer offer) {
+        fillRequiredFieldsOffer(offer);
         setStatus("Неактивен");
         buttonSave.click();
-        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
+        $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
     }
 
-    public void createOfferDelete() {
-        fillRequiredFieldsOffer();
-        sendName("Delete");
+    public void createOfferDelete(Offer offer) {
+        fillRequiredFieldsOffer(offer);
         setStatus("Удален");
         buttonSave.click();
-        $x("//ul/li[@class='active' and text()='" + randomName + "']").shouldBe(visible);
+        $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
     }
 
-    public void editOffer(String newName, String newSlug, String newLicence, String newErid,
+  /*  public void editOffer(String newName, String newSlug, String newLicence, String newErid,
                           String newMinAge, String newMaxAge, String newHold )
     {
             name.setValue(newName);
@@ -170,12 +139,10 @@ public class OfferCreationPage {
             minAge.setValue(newMinAge);
             maxAge.setValue(newMaxAge);
             hold.setValue(newHold);
-            //setStatus(newStatus);
-          //  selectFirstOption(categoryDropdown, $x("//ul/li[text()='" + newCategory + "']"));
-           // selectFirstOption(countryDropdown, $x("//ul/li[text()='" + newCountry + "']"));
+            setStatus(newStatus);
+            selectFirstOption(categoryDropdown, $x("//ul/li[text()='" + newCategory + "']"));
+           selectFirstOption(countryDropdown, $x("//ul/li[text()='" + newCountry + "']"));
             buttonSave.click();
-    }
-
-
+    } */
 
 }
