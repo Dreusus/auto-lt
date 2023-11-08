@@ -2,13 +2,13 @@ package pages.advertiser;
 
 import com.codeborne.selenide.SelenideElement;
 import Objects.Offer;
-import org.junit.Test;
+
 
 import java.io.File;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
-
+//http://adm.st.leads.tech/offer/create/
 public class OfferCreationPage {
     // Константы и генератор случайных данных
     public static final String PATH_IMAGE = "image.png";
@@ -128,6 +128,10 @@ public class OfferCreationPage {
         maxLoanTerm.setValue(offer.getMaxLoanTerm().toString());
         buttonSave.click();
         $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
+    }
+
+    public void createRateOffer(){
+
     }
 
     public void createOfferPrivate(Offer offer) {
