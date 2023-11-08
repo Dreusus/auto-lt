@@ -47,6 +47,14 @@ public class OfferCreationPage {
     private final SelenideElement trafficBackDropdown = $x("//span[@id='select2-offer-trafficbackid-container']");
     private final SelenideElement trafficBackFirst = $x("//ul[@id='select2-offer-trafficbackid-results']/li[1]");
 
+    private final SelenideElement amountMax = $("#offer-amount_max");
+    private final SelenideElement amountMin = $("#offer-amount_min");
+    private final SelenideElement minPercentAge = $("#offer-annual_percentage_min");
+    private final SelenideElement minPercentDay = $("#offer-daily_percentage_min");
+    private final SelenideElement dailyConversionLimit = $("#offer-dailyconversionlimit");
+    private final SelenideElement cookieLTV = $("#offer-cookieltv");
+    private final SelenideElement minLoanTerm = $("#offer-loantermfrom");
+    private final SelenideElement maxLoanTerm = $("#offer-loantermto");
 
 
 
@@ -100,10 +108,24 @@ public class OfferCreationPage {
         selectFirstOption(trafficBackDropdown, trafficBackFirst);
     }
 
-    @Test
     public void createOfferActive(Offer offer) {
         fillRequiredFieldsOffer(offer);
         setStatus("Активен");
+        buttonSave.click();
+        $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
+    }
+
+    public void createOfferActiveMax(Offer offer){
+        fillRequiredFieldsOffer(offer);
+        setStatus("Активен");
+        amountMax.setValue(offer.getAmountMax().toString());
+        amountMin.setValue(offer.getAmountMin().toString());
+        minPercentAge.setValue(offer.getMinPercentDay().toString());
+        minPercentDay.setValue(offer.getMinPercentDay().toString());
+        dailyConversionLimit.setValue(offer.getDailyConversionLimit().toString());
+        cookieLTV.setValue(offer.getCookieLTV());
+        minLoanTerm.setValue(offer.getMinLoanTerm().toString());
+        maxLoanTerm.setValue(offer.getMaxLoanTerm().toString());
         buttonSave.click();
         $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
     }
@@ -115,7 +137,9 @@ public class OfferCreationPage {
         $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
     }
 
-    public void createOfferNoActive(Offer offer) {
+
+
+    /*public void createOfferNoActive(Offer offer) {
         fillRequiredFieldsOffer(offer);
         setStatus("Неактивен");
         buttonSave.click();
@@ -128,21 +152,7 @@ public class OfferCreationPage {
         buttonSave.click();
         $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
     }
+ */
 
-  /*  public void editOffer(String newName, String newSlug, String newLicence, String newErid,
-                          String newMinAge, String newMaxAge, String newHold )
-    {
-            name.setValue(newName);
-            slug.setValue(newSlug);
-            licence.setValue(newLicence);
-            erid.setValue(newErid);
-            minAge.setValue(newMinAge);
-            maxAge.setValue(newMaxAge);
-            hold.setValue(newHold);
-            setStatus(newStatus);
-            selectFirstOption(categoryDropdown, $x("//ul/li[text()='" + newCategory + "']"));
-           selectFirstOption(countryDropdown, $x("//ul/li[text()='" + newCountry + "']"));
-            buttonSave.click();
-    } */
 
 }

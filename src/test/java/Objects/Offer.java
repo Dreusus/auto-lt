@@ -13,7 +13,15 @@ public class Offer {
     private Integer minAge;
     private Integer maxAge;
     private String  offerLink;
-    private String  offerProductName ;
+    private String  offerProductName;
+    private Long amountMax;
+    private Long amountMin;
+    private Long minPercentAge;
+    private Float minPercentDay;
+    private Long dailyConversionLimit;
+    private String cookieLTV;
+    private Long minLoanTerm;
+    private Long maxLoanTerm;
 
     private static final Faker faker = new Faker();
 
@@ -27,7 +35,16 @@ public class Offer {
         generateMaxAge();
         generateHold();
         generateOfferLink();
+        generateAmountMax();
+        generateAmountMin();
+        generateMinPercentAge();
+        generateMinPercentDay();
+        generateDailyConversionLimit();
+        generateMinLoanTerm();
+        generateMaxLoanTerm();
+        generateCookieLTV();
     }
+
 
 
 
@@ -62,6 +79,31 @@ public class Offer {
     private void generateOfferLink(){
         this.offerLink = "https://google.by/?clickId={clickId}&wmid={webmasterid}";
     }
+    private void generateAmountMax() {
+        this.amountMax =  faker.number().randomNumber(5,true);
+    }
+    private void generateAmountMin() {
+        this.amountMin =  faker.number().randomNumber(5,true);
+    }
+    private void generateMinPercentAge() {
+        this.minPercentAge= (long) faker.number().numberBetween(1,292);
+    }
+    private void generateMinPercentDay() {
+        this.minPercentDay = (float) (0.1 * faker.number().numberBetween(0,8));
+    }
+    private void generateDailyConversionLimit() {
+        this.dailyConversionLimit =  faker.number().randomNumber(5,true);
+    }
+
+    private void generateMinLoanTerm() {
+        this.minLoanTerm =  faker.number().randomNumber(5,true);
+    }
+    private void generateMaxLoanTerm() {
+        this.maxLoanTerm =  faker.number().randomNumber(5,true);
+    }
+    private void generateCookieLTV(){
+        this.cookieLTV = faker.color().name();
+    }
 
 
     //Гетеры
@@ -74,6 +116,14 @@ public class Offer {
     public Integer getMaxAge() {return  maxAge;}
     public Integer getHold() {return hold;}
     public String getOfferLink(){return offerLink;}
+    public Long getAmountMax(){return amountMax;}
+    public Long getAmountMin(){return amountMin;}
+    public Long getMinPercentAge(){return minPercentAge;}
+    public Float getMinPercentDay(){return minPercentDay;}
+    public Long getDailyConversionLimit(){return dailyConversionLimit;}
+    public Long getMinLoanTerm(){return minLoanTerm;}
+    public Long getMaxLoanTerm(){return maxLoanTerm;}
+    public String getCookieLTV(){return cookieLTV;}
 
     }
 

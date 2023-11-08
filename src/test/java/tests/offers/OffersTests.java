@@ -36,18 +36,27 @@ public class OffersTests extends BaseTest {
         sleep(3000);
     }
 
+    @Test
+    public void createOfferActiveMax() {
+        Offer offer = new Offer();
+        navigate.navigateToOffersPage();
+        offersPage.goToOfferRegistration();
+        offerCreationPage.createOfferActiveMax(offer);
+        sleep(3000);
+    }
 
 
-    @Description("созданиыва")
+
+    @Test
     public void createOfferPrivate() {
-        Allure.step("arwe");
         Offer offer = new Offer();
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferPrivate(offer);
     }
 
-
+    /*
+    @Test
     public void createOfferNoActive() {
         Offer offer = new Offer();
         navigate.navigateToOffersPage();
@@ -55,24 +64,15 @@ public class OffersTests extends BaseTest {
         offerCreationPage.createOfferNoActive(offer);
     }
 
-
+    @Test
     public void createOfferDelete() {
-
         Offer offer = new Offer();
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferDelete(offer);
     }
+    */
 
-
-   /* public void editCreatedOffer() {
-        navigate.navigateToOffersPage();
-        offersPage.goToOfferRegistration();
-        offerCreationPage.createOfferActive();
-        sleep(3000);
-        offerCreationPage.editOffer("Active_Rename","reslug","222222","222222","0","20","1");
-        sleep(3000);
-    } */
 
     @After
     public void teardown() {
