@@ -108,7 +108,7 @@ public class OfferCreationPage {
         selectFirstOption(trafficBackDropdown, trafficBackFirst);
     }
 
-    public void createOfferActive(Offer offer) {
+    public void createOfferActiveMin(Offer offer) {
         fillRequiredFieldsOffer(offer);
         setStatus("Активен");
         buttonSave.click();
@@ -140,6 +140,7 @@ public class OfferCreationPage {
         buttonSave.click();
         $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
     }
+}
 
 
 
@@ -159,4 +160,3 @@ public class OfferCreationPage {
  */
 
 
-}
