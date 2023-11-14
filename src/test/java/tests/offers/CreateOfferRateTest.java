@@ -2,17 +2,21 @@ package tests.offers;
 
 import Objects.Offer;
 import basetest.BaseTest;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.After;
 import org.junit.Test;
 import pages.Navigate;
 import pages.advertiser.OfferCreationPage;
+import pages.advertiser.OfferRatePage;
 import pages.advertiser.OfferUpdatePage;
 import pages.advertiser.OffersPage;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.codeborne.selenide.Selenide.$x;
 
 
 public class CreateOfferRateTest extends BaseTest {
@@ -20,17 +24,17 @@ public class CreateOfferRateTest extends BaseTest {
     private Navigate navigate;
     private OffersPage offersPage;
     private OfferCreationPage offerCreationPage;
+    private OfferRatePage offerRatePage;
     public CreateOfferRateTest() {
         navigate = new Navigate();
         offersPage = new OffersPage();
         offerCreationPage = new OfferCreationPage();
-
+        offerRatePage = new OfferRatePage();
     }
     public void navigateToOfferRate() {
         String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
-        System.out.println("Полный URL: " + currentUrl);
         String offerId = extractOfferId(currentUrl);
-        System.out.println(offerId);
+
         OfferUpdatePage offerUpdatePage = new OfferUpdatePage(offerId);
         offerUpdatePage.navigateToOfferRatePage();
     }
@@ -50,6 +54,7 @@ public class CreateOfferRateTest extends BaseTest {
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferActiveMin(offer);
         navigateToOfferRate();
+        offerRatePage.createRate();
     }
     @After
     public void teardown() {

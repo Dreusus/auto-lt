@@ -130,9 +130,6 @@ public class OfferCreationPage {
         $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
     }
 
-    public void createRateOffer(){
-
-    }
 
     public void createOfferPrivate(Offer offer) {
         fillRequiredFieldsOffer(offer);
