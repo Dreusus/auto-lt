@@ -52,7 +52,7 @@ public class CreateOfferRateTest extends BaseTest {
         Offer offer = new Offer();
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
-        offerCreationPage.createOfferActiveMin(offer);
+        offerCreationPage.createOfferActiveMax(offer);
         navigateToOfferRate();
         offerRatePage.createRate();
     }

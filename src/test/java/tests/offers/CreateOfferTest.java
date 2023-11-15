@@ -53,23 +53,5 @@ public class CreateOfferTest extends BaseTest {
         Selenide.closeWebDriver();
     }
 
-        /*
-    @Test
-    public void createOfferNoActive() {
-        Offer offer = new Offer();
-        navigate.navigateToOffersPage();
-        offersPage.goToOfferRegistration();
-        offerCreationPage.createOfferNoActive(offer);
-    }
-
-    @Test
-    public void createOfferDelete() {
-        Offer offer = new Offer();
-        navigate.navigateToOffersPage();
-        offersPage.goToOfferRegistration();
-        offerCreationPage.createOfferDelete(offer);
-    }
-    */
-
 
 }
