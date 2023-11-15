@@ -17,7 +17,7 @@ public class Offer {
     private Long amountMax;
     private Long amountMin;
     private Long minPercentAge;
-    private Float minPercentDay;
+    private Float maxPercentDay;
     private Long dailyConversionLimit;
     private String cookieLTV;
     private Long minLoanTerm;
@@ -38,7 +38,7 @@ public class Offer {
         generateAmountMax();
         generateAmountMin();
         generateMinPercentAge();
-        generateMinPercentDay();
+        generateMaxPercentDay();
         generateDailyConversionLimit();
         generateMinLoanTerm();
         generateMaxLoanTerm();
@@ -88,8 +88,8 @@ public class Offer {
     private void generateMinPercentAge() {
         this.minPercentAge= (long) faker.number().numberBetween(1,292);
     }
-    private void generateMinPercentDay() {
-        this.minPercentDay = (float) (0.1 * faker.number().numberBetween(0,8));
+    private void generateMaxPercentDay() {
+        this.maxPercentDay = (float) (0.1 * faker.number().numberBetween(0,8));
     }
     private void generateDailyConversionLimit() {
         this.dailyConversionLimit =  faker.number().randomNumber(5,true);
@@ -119,7 +119,7 @@ public class Offer {
     public Long getAmountMax(){return amountMax;}
     public Long getAmountMin(){return amountMin;}
     public Long getMinPercentAge(){return minPercentAge;}
-    public Float getMinPercentDay(){return minPercentDay;}
+    public Float getMaxPercentDay(){return  maxPercentDay;}
     public Long getDailyConversionLimit(){return dailyConversionLimit;}
     public Long getMinLoanTerm(){return minLoanTerm;}
     public Long getMaxLoanTerm(){return maxLoanTerm;}

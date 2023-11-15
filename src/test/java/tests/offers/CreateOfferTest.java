@@ -28,7 +28,6 @@ public class CreateOfferTest extends BaseTest {
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferActiveMin(offer);
-        sleep(3000);
     }
 
     @Test
@@ -37,7 +36,6 @@ public class CreateOfferTest extends BaseTest {
         navigate.navigateToOffersPage();
         offersPage.goToOfferRegistration();
         offerCreationPage.createOfferActiveMax(offer);
-        sleep(3000);
     }
 
     @Test

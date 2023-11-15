@@ -120,8 +120,8 @@ public class OfferCreationPage {
         setStatus("Активен");
         amountMax.setValue(offer.getAmountMax().toString());
         amountMin.setValue(offer.getAmountMin().toString());
-        minPercentAge.setValue(offer.getMinPercentDay().toString());
-        minPercentDay.setValue(offer.getMinPercentDay().toString());
+        minPercentAge.setValue(offer.getMinPercentAge().toString());
+        minPercentDay.setValue(offer.getMaxPercentDay().toString());
         dailyConversionLimit.setValue(offer.getDailyConversionLimit().toString());
         cookieLTV.setValue(offer.getCookieLTV());
         minLoanTerm.setValue(offer.getMinLoanTerm().toString());
@@ -139,21 +139,5 @@ public class OfferCreationPage {
     }
 }
 
-
-
-    /*public void createOfferNoActive(Offer offer) {
-        fillRequiredFieldsOffer(offer);
-        setStatus("Неактивен");
-        buttonSave.click();
-        $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
-    }
-
-    public void createOfferDelete(Offer offer) {
-        fillRequiredFieldsOffer(offer);
-        setStatus("Удален");
-        buttonSave.click();
-        $x("//ul/li[@class='active' and text()='" + offer.getName() + "']").shouldBe(visible);
-    }
- */
 
 
