@@ -1,6 +1,10 @@
 package pages;
 
 
+import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
+
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class Navigate {
@@ -42,15 +46,21 @@ public class Navigate {
     private static final String WEB_POSTBACK  = "//a[@href='/webmaster-postback/index/']";
     private static final String WEB_POSTBACK_LOG = "//a[@href='/webmaster-postback-log/index/']";
 
+    public SelenideElement
+            buttonWeb = $(By.xpath("//li//a[text()='Вебмастера ']")),
+            webWebmaster = $(By.xpath("//a[@href='/webmaster/index/']")),
+            buttonAdv = $(By.xpath("//li[@class='dropdown']/a[text()='Рекламодатели ']")),
+            advOffer = $(By.xpath("//ul/li/a[text()='Офферы']"));
+
 
     public void navigateToWebmastersPage() {
-        $x(WEB_BUTTON).click();
-        $x(WEB_WEBMASTER).click();
+        buttonWeb.click();
+        webWebmaster.click();
     }
 
 
     public void navigateToOffersPage() {
-        $x(ADV_BUTTON).click();
-        $x(ADV_OFFER).click();
+        buttonAdv.click();
+        advOffer.click();
     }
 }

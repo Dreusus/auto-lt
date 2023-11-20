@@ -1,48 +1,28 @@
 package tests.webmasters;
 
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
-import org.junit.After;
 import org.junit.Test;
-import pages.Navigate;
-import pages.webmasters.WebmasterCreationPage;
-import pages.webmasters.WebmastersPage;
 import basetest.BaseTest;
-import Objects.Webmaster;
 
 public class CreateWebTests extends BaseTest {
-    private Navigate navigate;
-    private WebmastersPage webmastersPage;
-    private WebmasterCreationPage webmasterCreationPage;
 
-    public CreateWebTests(){
-        navigate = new Navigate();
-        webmastersPage = new WebmastersPage();
-        webmasterCreationPage = new WebmasterCreationPage();
-    }
 
- @Test
- @Description("Создание вебмастера со всеми обязательными параметрами")
+    //Это не тест, а предусловие перед тестом - вынести в отдельный шаг целиком
+    @Test
+    @Description("Создание вебмастера со всеми обязательными параметрами")
     public void createActiveWebMin() {
-        Webmaster webmaster = new Webmaster();
         navigate.navigateToWebmastersPage();
         webmastersPage.goToWebmasterRegistration();
-        webmasterCreationPage.createWebMin(webmaster);
+        webmasterCreationPage.createWebMin(webmaster);  // здесь есть проверка, внутри шага - лучше когда проверка внутри теста, так мы будем видеть где он упал
     }
 
     @Test
     @Description("Создание веба со всеми возможными параметрами")
-    public void createActiveWebMax(){
-        Webmaster webmaster = new Webmaster();
+    public void createActiveWebMax() {
         navigate.navigateToWebmastersPage();
         webmastersPage.goToWebmasterRegistration();
         webmasterCreationPage.createWebMax(webmaster);
     }
 
 
-
-    @After
-    public void teardown() {
-        Selenide.closeWebDriver();
-    }
 }
